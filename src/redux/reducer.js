@@ -1,6 +1,8 @@
 export const initialState = {
     post: [],
+    groups : [],
     user: null,
+    location : null,
   };
   
   //Selector
@@ -77,6 +79,12 @@ export const initialState = {
           ...state,
           user: action.user,
         };
+
+        case "SET_LOCATION":
+          return {
+            ...state,
+            location: action.user,
+          };
   
       default:
         return state;
