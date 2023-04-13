@@ -1,5 +1,5 @@
 import React , { useState} from 'react';
-import { FaCaretDown, FaUserPlus , FaMapMarkerAlt, FaPen, FaTimes , FaInfoCircle, FaThumbsUp } from 'react-icons/fa';
+import { FaCaretDown, FaTimesCircle ,  FaUserPlus , FaMapMarkerAlt, FaPen, FaTimes , FaInfoCircle, FaThumbsUp } from 'react-icons/fa';
 import {useStateValue} from "../redux/StateProvider.js";
 import ModalContainer from '../Pages/ModalContainer.js';
 import PostCard from './PostCard.js';
@@ -9,10 +9,50 @@ import PostCard from './PostCard.js';
 const Post = () => {
 
    const [{ post, user }, dispatch] = useStateValue();
-   const [visibility, setVisibility] = useState(false);
    const [alter, setAlter] = useState(true);
    const [location, setLocation] = useState("");
    const [filter, setFilter] = useState();
+   const [title, setTitle] = useState("");
+   const [desc, setDesc] = useState("");
+   const [imageLink, setImageLink] = useState("");
+   const [postType , setPostType] = useState("");
+ 
+ 
+   const handleTitle = (e)=>{
+      setTitle(e.target.value);
+   }
+ 
+   const handleDesc = (e)=>{
+      setDesc(e.target.value);
+   }
+ 
+   const handleImageLink = (e)=>{
+      setImageLink(e.target.value);
+   }
+ 
+   const handlePostType = (e)=>{
+     setPostType(e.target.value);
+   }
+ 
+   const handleSubmission = (e)=>{
+ 
+     const date = new Date();
+     const userData = localStorage.getItem("userData");
+ 
+     dispatch({
+       type: "ADD_TO_POST",
+       item: {
+         title : title,
+         desc : desc,
+         imageLink : imageLink,
+         postType : postType,
+         userData : "",
+         currentDateTime : date,
+       },
+     });
+     e.preventDefault();
+   }
+
 
 
    const postArray  = [{
@@ -73,21 +113,17 @@ const Post = () => {
 
    // handle location submissions
    
-   const handleSubmission = async (e) =>{
-      dispatch({
-      type: "ADD_TO_BASKET",
-      item: {
-        location : location
-      },
-    });
-    e.preventDefault();
-   }
+   // const handleSubmission = async (e) =>{
+   //    dispatch({
+   //    type: "ADD_TO_BASKET",
+   //    item: {
+   //      location : location
+   //    },
+   //  });
+   //  e.preventDefault();
+   // }
 
-   //  modal Fetcher function
-    const modalFetcher = () =>{
-        setVisibility(true);
-       
-    }
+  
    //  location value setter function
    const onInputChange = (e) =>{
          setAlter(false);
@@ -103,9 +139,7 @@ const Post = () => {
       }
    }
 
-   const handleVisibility = (value) =>{
-     setVisibility(value);
-  }
+ 
 
 //    filter Buttons functions
   const handleFilterButtons = (e)=>{
@@ -119,7 +153,63 @@ const Post = () => {
   }
   return (
    <>
-    {visibility === true && <ModalContainer handleVisibility={handleVisibility} /> }
+      {/*  modals */}
+   
+  
+      <div className="modal fade" id="createPost" tabindex="-1" aria-labelledby="createPost" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">SignUp</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <div className="container-fluid d-flex p-1 justify-content-end align-items-center">
+            <FaTimesCircle color='white' />
+          </div>
+          <form onSubmit={handleSubmission} className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
+          
+              <div className='container-fluid d-flex justify-content-start px-2 h5 align-items-center fw-bolder' >
+                  Write a post!
+              </div>
+              
+             <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter post title' onChange={e=>handleTitle(e)} required />
+             </div>
+             <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter post description' onChange={e=>handleDesc(e)} required />
+             </div>
+             <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
+             <div className='container-fluid d-flex text-secondary opacity-50' >
+                Example: https://linkName.com
+             </div>
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter image Link' onChange={e=>handleImageLink(e)} required />
+             </div>
+             <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
+             <div className='container-fluid d-flex text-secondary opacity-50' >
+                Select post type :
+             </div>
+             <select className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' onChange={e=>handlePostType(e)} required>
+                <option value="article" className='py-2' >article</option>
+                <option value="education" className='py-2' >education</option>
+                <option value="job" className='py-2' >job</option>
+                <option value="event" className='py-2' >event</option>
+             </select>
+             </div>
+             <div className="container-fluid">
+               <input type="submit" className='btn btn-primary' />
+             </div>
+          </form>
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      {/*  modal ends here */}
     <div className='container-fluid flex flex-col justify-content-center align-items-center bg-white py-4'>
       {/*  Post header */}
       <div className="container d-flex flex-row justify-content-between align-items-center border-bottom border-secondary border-opacity-50 " >
@@ -155,7 +245,8 @@ const Post = () => {
           </div>
           <div className='col-sm-6 d-md-block d-none py-2'>
             <div className='container-fluid d-flex flex-row justify-content-end align-items-center' >
-            <button type='button' onClick={modalFetcher}  className='p-2 btn-light border-0 mx-1 fw-normal fs-6'>
+            <button type='button' data-toggle="modal"
+                data-target="#createPost"  className='p-2 btn-light border-0 mx-1 fw-normal fs-6'>
                  Write a Post <FaCaretDown />
              </button>
              <button type='button'  className='p-2 bg-primary text-white border-0  mx-1 fw-normal fs-6'>
