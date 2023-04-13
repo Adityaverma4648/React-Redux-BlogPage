@@ -52,10 +52,10 @@ const Navbar = () => {
     <>
 
 <div className="modal fade" id="signUp" tabindex="-1" aria-labelledby="signUp" aria-hidden="true">
-  <div className="modal-dialog modal-dialog-centered">
+  <div className="modal-dialog  modal-xl modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">SignUp</h5>
+        Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
