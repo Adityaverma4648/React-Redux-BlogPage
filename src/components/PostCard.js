@@ -65,9 +65,10 @@ const PostCard = (props) => {
             <div className="container-fluid d-flex flex-sm-row flex-column justify-content-between align-items-center">
                 <div className='container d-flex justify-content-start align-items-center'  >
                   <div className='d-flex flex-row justify-content-between align-items-center' id="avatar">
-                    <img src={props.publisher.userAvatar} className='bg-danger rounded-circle me-2' style={{height:"30px", width : "30px"}} alt="userAvatar"/>
+                    <img src="#" className='bg-danger rounded-circle me-2' style={{height:"30px", width : "30px"}} alt="userAvatar"/>
                      <div className='fw-bolder' >
-                        {props.publisher.userName}
+                        {/* {props.publisher.userName} */}
+                        userName
                      </div>
                   </div>
                 </div>

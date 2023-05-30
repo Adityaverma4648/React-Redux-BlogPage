@@ -1,7 +1,7 @@
 export const initialState = {
     post: [],
     groups : [],
-    user: null,
+    user: [],
     location : null,
   };
   
@@ -11,6 +11,9 @@ export const initialState = {
   
   const reducer = (state, action) => {
     const checkUnique = (x) => x.id === action.item.id;
+
+    const checkUniqueEmail = (x) => x.email === action.item.email;
+
     switch (action.type) {
       case "ADD_TO_POST":
         if (state.post.some(checkUnique)) {
@@ -24,6 +27,19 @@ export const initialState = {
             post: [...state.post, action.item],
           };
         }
+//  adding user
+        case "ADD_USER":
+          if (state.user.some(checkUniqueEmail)) {
+            return {
+              ...state,
+              post: [...state.post],
+            };
+          } else {
+            return {
+              ...state,
+              post: [...state.post, action.item],
+            };
+          }  
   
       case "UPDATE_POST":
         const target = state.post.find((x) => x.id === action.item.id);
