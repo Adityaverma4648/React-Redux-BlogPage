@@ -113,7 +113,7 @@ const Post = () => {
    <>
       {/*  modals */}
 
-      <div className="modal fade" id="createPost" tabindex="-1" aria-labelledby="createPost" aria-hidden="true">
+      <div className="modal fade" id="createPost"  aria-labelledby="createPost" aria-hidden="true">
   <div className="modal-dialog  modal-md modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
@@ -281,7 +281,8 @@ const Post = () => {
                       </div>
                       <div className='py-5' >
                       {groupArray.map((d)=>{
-                         return <div className='container-fluid d-flex justify-content-between align-items-center p-2 text-black'>
+                         return <div key={d.id}
+                         className='container-fluid d-flex justify-content-between align-items-center p-2 text-black'>
                                     <div className='col-sm-6 d-flex' >
                                       <img src={d.avatarLink} className='rounded-circle me-2' style={{height:"30px", width : "30px"}} alt="groupAvatar"/>
                                       <div className='ms-1 fw-light' >

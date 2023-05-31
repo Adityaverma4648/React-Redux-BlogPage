@@ -5,7 +5,6 @@ import { FaArrowLeft } from "react-icons/fa";
 const Header = () => {
   return (
     <header className="Header container-fluid d-flex flex-col justify-content-center align-items-center">
-      <Navbar />
       <div className="position-relative d-flex justify-content-start align-items-end" >
              <div className="container-fluid py-4 position-absolute top-0 d-block d-sm-none d-flex justify-content-between align-items-center" style={{marginTop:"5rem"}}>
                  <div>

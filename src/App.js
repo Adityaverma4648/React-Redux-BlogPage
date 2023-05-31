@@ -1,12 +1,22 @@
 import "./App.css";
-import Header from "./components/Header.js";
-import Post from "./components/Post.js";
+import {BrowserRouter , Routes , Route} from "react-router-dom";
+import Home from "./pages/Home";
+import SignUp from "./pages/SignUp";
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+
 
 export default function App() {
   return (
-    <div className="container-fluidd-flex flex-column justify-content-start align-items-center" style={{height:"100vh"}}>
-      <Header />
-      <Post />
-    </div>
+      <>
+         <Navbar />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} exact ></Route>
+            <Route path="/signUp" element={<SignUp />} exact ></Route>
+
+          </Routes>
+        </BrowserRouter>
+      </>
   );
 }

@@ -35,31 +35,20 @@ const Navbar = () => {
     }
   }
 
-  const handleSubmission = (e)=>{
-    dispatch({
-      type: "ADD_USER",
-      item: {
-        userName : userName,
-        email : email,
-        password : password,
-      },
-    });
-    e.preventDefault();
-  }
   
 
   return (
     <>
         {/* Modal signUp */}
-        <div className="modal fade" id="signUp" tabindex="-1" aria-labelledby="signUp" aria-hidden="true">
-        <div className="modal-dialog  modal-md modal-dialog-centered">
+        <div className="modal fade" id="signUp" aria-labelledby="signUp" aria-hidden="true">
+        <div className="modal-dialog modal-md modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               Let's learn, share & inspire each other with our passion for computer engineering. Sign up now 🤘🏼
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
           <div className="modal-body">
-             <form onSubmit={handleSubmission} className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
+             <form method="post" action="http://localhost:7000/auth/signUp" className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
           
               <div className='container-fluid d-flex justify-content-start px-2 h5 align-items-center fw-bolder' >
                   SignUp
@@ -69,7 +58,7 @@ const Navbar = () => {
              <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter User Name' name="userName" onChange={e=>handleUserName(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
-             <input type="email" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter email' name="email" onChange={e=>handleEmail(e)} required />
+             <input type="email" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter email' name="userEmail" onChange={e=>handleEmail(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
 
@@ -79,7 +68,7 @@ const Navbar = () => {
                 <label htmlFor="visibility" className="fw-bolder fs-6">
                    Show Password
                 </label>
-                <input type="checkbox" className='border border-secondary border-opacity-50 bg-transparent p-2 ms-2' placeholder='Enter password' name="visibility" onChange={e=>handlePasswordVisibility(e)} required />
+                <input type="checkbox" className='border border-secondary border-opacity-50 bg-transparent p-2 ms-2' placeholder='Enter password' name="visibility" onChange={e=>handlePasswordVisibility(e)}  />
              </div>
              <div className="container-fluid">
                <input type="submit" className='btn btn-primary' />
@@ -93,7 +82,7 @@ const Navbar = () => {
   </div>
         </div>
 
-        <div className="modal fade" id="login" tabindex="-1" aria-labelledby="login" aria-hidden="true">
+        <div className="modal fade" id="login"  aria-labelledby="login" aria-hidden="true">
         <div className="modal-dialog  modal-md modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
@@ -101,13 +90,13 @@ const Navbar = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
           <div className="modal-body">
-             <form onSubmit={handleSubmission} className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
+             <form method="post" action="http://localhost:7000/auth/login" className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
           
               <div className='container-fluid d-flex justify-content-start px-2 h5 align-items-center fw-bolder' >
                   Login
               </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
-             <input type="email" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter email' name="email" onChange={e=>handleEmail(e)} required />
+             <input type="email" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter email' name="userEmail" onChange={e=>handleEmail(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
 
@@ -117,7 +106,7 @@ const Navbar = () => {
                 <label htmlFor="visibility" className="fw-bolder fs-6">
                    Show Password
                 </label>
-                <input type="checkbox" className='border border-secondary border-opacity-50 bg-transparent p-2 ms-2' placeholder='Enter password' name="visibility" onChange={e=>handlePasswordVisibility(e)} required />
+                <input type="checkbox" className='border border-secondary border-opacity-50 bg-transparent p-2 ms-2' placeholder='Enter password' name="visibility" onChange={e=>handlePasswordVisibility(e)} />
              </div>
              <div className="container-fluid">
                <input type="submit" className='btn btn-primary' />
@@ -148,7 +137,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="col-sm-3 navbarChild d-flex justify-content-sm-center justify-content-end align-items-center" >
-       <div class="btn btn-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+       <div className="btn btn-transparent border-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
          <button className="btn btn-transparent border-0 dropdown-toggle fw-bolder" type="button" data-toggle="dropdown">
                Create account. 
                <span className="fw-bold text-primary" >
@@ -156,7 +145,7 @@ const Navbar = () => {
                </span>
            </button>
            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-               <li class="border-bottom border-secondary border-opacity-50" >
+               <li className="border-bottom border-secondary border-opacity-50" >
                  <button type="button" className="border-0 bg-transparent dropdown-item" data-bs-toggle="modal" data-bs-target="#signUp" >SignUp</button>
                  </li>
                <li>
