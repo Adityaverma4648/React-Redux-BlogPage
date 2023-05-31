@@ -2,19 +2,19 @@ import "./App.css";
 import {BrowserRouter , Routes , Route} from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
-import Header from "./components/Header";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
 
 
 export default function App() {
   return (
       <>
-         <Navbar />
         <BrowserRouter>
-          <Routes>
+          <Navbar />  
+          <Routes>         
             <Route path="/" element={<Home />} exact ></Route>
-            <Route path="/signUp" element={<SignUp />} exact ></Route>
-
+            <Route path="/signUp" element={<SignUp />}  ></Route>
+            <Route path="/login" element={<Login />} ></Route>
           </Routes>
         </BrowserRouter>
       </>

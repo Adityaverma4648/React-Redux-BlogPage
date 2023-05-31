@@ -13,7 +13,7 @@ const Post = () => {
    const [filter, setFilter] = useState("all");
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
-   const [imageLink, setImageLink] = useState("");
+   const [image, setImage] = useState("");
    const [postType , setPostType] = useState("");
    const [website, setWebsite] = useState("");
  
@@ -26,8 +26,8 @@ const Post = () => {
       setDesc(e.target.value);
    }
  
-   const handleImageLink = (e)=>{
-      setImageLink(e.target.value);
+   const handleImage = (e)=>{
+      setImage(e.target.value);
    }
  
    const handlePostType = (e)=>{
@@ -58,21 +58,21 @@ const Post = () => {
 
    // handle location submissions
    
-   const handleSubmission = async (e) =>{
-      dispatch({
-      type: "ADD_TO_POST",
-      item: {
-         id : post.length + 1, 
-         title : title,
-         desc  : desc,
-         imageLink : imageLink,
-         postType : postType,
-         website : website,
-      },
-    });
-    e.target.reset();
-    e.preventDefault();
-   }
+   // const handleSubmission = async (e) =>{
+   //    dispatch({
+   //    type: "ADD_TO_POST",
+   //    item: {
+   //       id : post.length + 1, 
+   //       title : title,
+   //       desc  : desc,
+   //       image : image,
+   //       postType : postType,
+   //       website : website,
+   //    },
+   //  });
+   //  e.target.reset();
+   //  e.preventDefault();
+   // }
 
   
    //  location value setter function - location setter function
@@ -124,29 +124,29 @@ const Post = () => {
       <div className="container-fluid d-flex p-1 justify-content-end align-items-center">
             <FaTimesCircle color='white' />
           </div>
-          <form onSubmit={handleSubmission} className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
+          <form method='post' action='http://localhost:7000/blog/create' className="bg-white container-fluid d-flex flex-column justify-content-center align-items-center p-2">
           
               <div className='container-fluid d-flex justify-content-start px-2 h5 align-items-center fw-bolder' >
                   Write a post!
               </div>
               
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
-             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter post title' onChange={e=>handleTitle(e)} required />
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' name='title' placeholder='Enter post title' onChange={e=>handleTitle(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
-             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter post description' onChange={e=>handleDesc(e)} required />
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' name='description' placeholder='Enter post description' onChange={e=>handleDesc(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
              <div className='container-fluid d-flex text-secondary opacity-50' >
-                Example: https://linkName.com
+                Please Ensure File Type To Be: JPG ,PNG. 
              </div>
-             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter image Link' onChange={e=>handleImageLink(e)} required />
+             <input type="file" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' name='image' placeholder='Enter image' onChange={e=>handleImage(e)} required />
              </div>
              <div className='container-fluid d-flex flex-column justify-content-center align-items-center mb-1 py-1'>
              <div className='container-fluid d-flex text-secondary opacity-50' >
                 Select post type :
              </div>
-             <select className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' onChange={e=>handlePostType(e)} required>
+             <select className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' name='postType' onChange={e=>handlePostType(e)} required>
                 <option value="article" className='py-2' >article</option>
                 <option value="education" className='py-2' >education</option>
                 <option value="job" className='py-2' >job</option>
@@ -158,7 +158,7 @@ const Post = () => {
              <div className='container-fluid d-flex text-secondary opacity-50' >
                 Example: https://linkName.com
              </div>
-             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter Website Link' onChange={e=>handleWebsite(e)} required />
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' name="eventAdditionalLink" placeholder='Enter Website Link' onChange={e=>handleWebsite(e)} required />
              </div>
              }
              {postType==="job" &&
@@ -166,7 +166,7 @@ const Post = () => {
              <div className='container-fluid d-flex text-secondary opacity-50' >
                 Example: https://linkName.com
              </div>
-             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter Website Link to apply for jobs at' onChange={e=>handleWebsite(e)} required />
+             <input type="text" className='border border-secondary border-opacity-50 container-fluid bg-transparent p-2' placeholder='Enter Website Link to apply for jobs at' name='jobAdiitionalLink' onChange={e=>handleWebsite(e)} required />
              </div>
              }
              <div className="container-fluid">
@@ -248,7 +248,7 @@ const Post = () => {
                  })}
            </div>
            <div className="col-sm-3 d-flex flex-column justify-content-start align-items-center py-4 d-md-block d-none"  >
-                 <form onSubmit={handleSubmission} className="container py-1 d-flex flex-row justify-content-between align-items-center border-bottom">
+                 <form className="container py-1 d-flex flex-row justify-content-between align-items-center border-bottom">
                     <div className='d-flex justify-content-center align-items-center' >
                     <label className='mx-1' htmlFor="location">
                     <FaMapMarkerAlt />
